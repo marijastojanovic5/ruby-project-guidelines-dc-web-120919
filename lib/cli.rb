@@ -24,7 +24,6 @@ def help
       -exit : exits the app
     HELP
   puts help
-  
   run
 end
 
@@ -38,6 +37,13 @@ def option
   OPTIONS
   puts options
 end
+# we need one menu for author and title and another one when ppl pick ratings.
+# author and title: be able to select another book
+# for rating just availability
+# uniq method for ratings
+# we need availability method 
+# we need index for ratings
+
 
 
 
@@ -71,6 +77,7 @@ def author_by_title
        puts "Invalid input, please try again."
      end
       option
+      availability
       main_menu
  
 end
@@ -96,11 +103,7 @@ def all_titles
     Book.all.each_with_index {|book, index|
     puts "#{index+1}. #{book.title}"}
 end
-# def ratings
-#     Checkout.all.map do |checkout|
-#         checkout.rate
-#     end.count
-# end
+
 
 def highest_rating
     checkouts =  Checkout.all.select do |checkout|
@@ -108,19 +111,23 @@ def highest_rating
     end.first(5)
     checkouts.each do |checkout|
        puts checkout.book.title
-    end.uniq
+    end
      option
      main_menu
 end
 def lowest_rating
-    checkouts =  Checkout.all.select do |checkout|
+      checkouts = Checkout.all.select do |checkout|
         checkout.rate == 1
-    end.first(5).uniq
+    end.first(5)
     checkouts.each do |checkout|
        puts checkout.book.title
     end
      option
      main_menu
+end
+
+def availability
+  puts " Book is available"
 end
 
 def exit_app
