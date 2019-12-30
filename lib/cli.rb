@@ -1,12 +1,13 @@
+require 'pry'
 def welcome
     puts "
            Welcome to our Library
-    __...--~~~~~-._   _.-~~~~~--...__
+     __...--~~~~~-._   _.-~~~~~--...__
     //               `V'               \\ 
    //    Marija       |     Dean        \\ 
   //__...--~~~~~~-._  |  _.-~~~~~~--...__\\ 
- //__.....----~~~~._\ | /_.~~~~----.....__\\
-====================\\|//====================
+ //__.....----~~~~._\  | /_.~~~~----.....__\\
+====================\\ |//====================
                     `---`
  "
  help
@@ -49,8 +50,6 @@ def title_by_author
       puts chosen_author.title
       puts "**** by **** "
       puts chosen_author.author
-    # elsif
-    #     all_authors
     else
       puts "Invalid input, please try again."
     end
@@ -67,8 +66,7 @@ def author_by_title
        puts chosen_author.title
        puts "**** by **** "
        puts chosen_author.author
-    #  elsif
-    #     all_authors
+   
      else
        puts "Invalid input, please try again."
      end
@@ -86,7 +84,7 @@ def main_menu
       when 'exit'
         exit_app
       else
-        options
+        option
     end
 end
 
@@ -98,8 +96,31 @@ def all_titles
     Book.all.each_with_index {|book, index|
     puts "#{index+1}. #{book.title}"}
 end
+# def ratings
+#     Checkout.all.map do |checkout|
+#         checkout.rate
+#     end.count
+# end
+
 def highest_rating
-    
+    checkouts =  Checkout.all.select do |checkout|
+    checkout.rate == 5
+    end.first(5)
+    checkouts.each do |checkout|
+       puts checkout.book.title
+    end.uniq
+     option
+     main_menu
+end
+def lowest_rating
+    checkouts =  Checkout.all.select do |checkout|
+        checkout.rate == 1
+    end.first(5).uniq
+    checkouts.each do |checkout|
+       puts checkout.book.title
+    end
+     option
+     main_menu
 end
 
 def exit_app
@@ -115,6 +136,7 @@ def run
       when 'highest rating'
         highest_rating
       when 'lowest rating'
+        lowest_rating
       when 'exit'
         exit_app
       else
