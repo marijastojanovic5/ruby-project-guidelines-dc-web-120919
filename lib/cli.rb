@@ -55,6 +55,22 @@ def title_by_author
      main_menu
     
 end
+def author_by_title
+    all_titles
+    puts "Please type the number of the author to see the title:"
+     user_input = gets.chomp
+     if (user_input.to_i) <= Book.all.count
+       chosen_author = Book.all[user_input.to_i - 1]
+       puts chosen_author.title
+       puts "**** by **** "
+       puts chosen_author.author
+     else
+       puts "Invalid input, please try again."
+     end
+      option
+      main_menu
+ 
+end
 def main_menu
     command = gets.downcase.strip
     case command
@@ -76,6 +92,11 @@ def all_authors
     Book.all.each_with_index {|book, index|
     puts "#{index+1}. #{book.author}"}
 end
+def all_titles
+    Book.all.each_with_index {|book, index|
+    puts "#{index+1}. #{book.title}"}
+end
+
 
 def exit_app
     puts "Thank you for using our app. Goodbye!"
@@ -86,7 +107,7 @@ def run
       when 'author'
         title_by_author
       when 'title'
-        # ingredient_submenu
+        author_by_title
       when 'highest rating'
       when 'lowest rating'
       when 'exit'
