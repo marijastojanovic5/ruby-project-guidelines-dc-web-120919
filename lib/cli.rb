@@ -17,14 +17,28 @@ def help
      Please choose one of the following:
       Book by
       -author : displays all the books by authors
-      -title : displays all the books by title
+      -title  : displays all the books by title
       -highest rating : displays book with max rating
-      -lowest rating : displays book with min rating
+      -lowest rating  : displays book with min rating
       -exit : exits the app
     HELP
   puts help
+  
   run
 end
+def option
+    options = <<-OPTIONS
+  
+  Please type one of the following:
+  - availability : check to see if this book is available
+  - main menu : go back to main menu
+  - exit : exit the app
+  OPTIONS
+  puts options
+end
+
+
+
 def title_by_author
    all_authors
    puts "Please type the number of the author to see the title:"
@@ -37,9 +51,24 @@ def title_by_author
     else
       puts "Invalid input, please try again."
     end
-    # options
-    # recipe_detail_menu(chosen_recipe)
+     option
+     main_menu
+    
 end
+def main_menu
+    command = gets.downcase.strip
+    case command
+    when 'main menu'
+      help
+      when 'main menu'
+        help
+      when 'exit'
+        exit_app
+      else
+        options
+    end
+end
+    
 
     
 
@@ -53,7 +82,6 @@ def exit_app
 end
 def run
     command = gets.downcase.strip
-    #   puts "Please enter a command:"
     case command
       when 'author'
         title_by_author
@@ -65,5 +93,5 @@ def run
         exit_app
       else
         help
-      end
-  end
+    end
+end

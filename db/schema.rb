@@ -17,14 +17,13 @@ ActiveRecord::Schema.define(version: 20191230162045) do
     t.string "author"
   end
 
-  create_table "checkuts", force: :cascade do |t|
+  create_table "checkouts", force: :cascade do |t|
     t.integer "book_id"
     t.integer "reader_id"
     t.integer "rate"
     t.date    "check_out_date"
     t.date    "due_date"
     t.date    "return_date"
-    t.boolean "availability"
   end
 
   create_table "readers", force: :cascade do |t|
