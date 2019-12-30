@@ -26,6 +26,7 @@ def help
   
   run
 end
+
 def option
     options = <<-OPTIONS
   
@@ -48,11 +49,13 @@ def title_by_author
       puts chosen_author.title
       puts "**** by **** "
       puts chosen_author.author
+    # elsif
+    #     all_authors
     else
       puts "Invalid input, please try again."
     end
-     option
-     main_menu
+    option
+    main_menu
     
 end
 def author_by_title
@@ -64,6 +67,8 @@ def author_by_title
        puts chosen_author.title
        puts "**** by **** "
        puts chosen_author.author
+    #  elsif
+    #     all_authors
      else
        puts "Invalid input, please try again."
      end
@@ -84,9 +89,6 @@ def main_menu
         options
     end
 end
-    
-
-    
 
 def all_authors
     Book.all.each_with_index {|book, index|
@@ -96,7 +98,9 @@ def all_titles
     Book.all.each_with_index {|book, index|
     puts "#{index+1}. #{book.title}"}
 end
-
+def highest_rating
+    
+end
 
 def exit_app
     puts "Thank you for using our app. Goodbye!"
@@ -109,6 +113,7 @@ def run
       when 'title'
         author_by_title
       when 'highest rating'
+        highest_rating
       when 'lowest rating'
       when 'exit'
         exit_app
