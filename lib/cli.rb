@@ -49,7 +49,7 @@ end
 
 def title_by_author
    all_authors
-   puts "Please type the number of the title to see the author:"
+   puts "Please type the number of the author to see the title:"
     user_input = gets.chomp
     if (user_input.to_i) <= Book.all.count
       chosen_author = Book.all[user_input.to_i - 1]
@@ -65,7 +65,7 @@ def title_by_author
 end
 def author_by_title
     all_titles
-    puts "Please type the number of the author to see the title:"
+    puts "Please type the number of the title to see the author:"
      user_input = gets.chomp
      if (user_input.to_i) <= Book.all.count
        chosen_author = Book.all[user_input.to_i - 1]
@@ -127,7 +127,7 @@ def lowest_rating
 end
 
 def availability
-  puts " Book is available"
+ 
 end
 
 def exit_app
