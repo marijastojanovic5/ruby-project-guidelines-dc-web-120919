@@ -47,13 +47,13 @@ end
 def title_by_author
    all_authors
    puts "Please type the number of the author to see the title:"
-   book_choosing
+   book_choosing_by_author
    option
    main_menu
    availability
     
 end
-def book_choosing
+def book_choosing_by_author
     user_input = gets.chomp
     if (user_input.to_i) <= Book.all.count
       chosen_author = Book.all[user_input.to_i - 1]
@@ -61,15 +61,32 @@ def book_choosing
       puts "**** by **** "
       puts chosen_author.author
     else
-      puts "Invalid input, please try again."
-      
+    all_authors
+    puts "Invalid input, please try again."
+    book_choosing_by_author
     end
+
+
+end
+def book_choosing_by_title
+    user_input = gets.chomp
+    if (user_input.to_i) <= Book.all.count
+      chosen_author = Book.all[user_input.to_i - 1]
+      puts chosen_author.title
+      puts "**** by **** "
+      puts chosen_author.author
+    else
+    all_titles
+    puts "Invalid input, please try again."
+    book_choosing_by_title
+    end
+
 
 end
 def author_by_title
     all_titles
     puts "Please type the number of the title to see the author:"
-    book_choosing
+    book_choosing_by_title
     option
     main_menu
     availability
