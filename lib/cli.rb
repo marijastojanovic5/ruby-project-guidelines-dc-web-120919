@@ -34,8 +34,10 @@ def option
   - availability : check to see if this book is available
   - main menu : go back to main menu
   - exit : exit the app
+
   OPTIONS
-  puts options
+   puts options
+  
 end
 # we need one menu for author and title and another one when ppl pick ratings.
 # author and title: be able to select another book
@@ -57,7 +59,9 @@ def title_by_author
       puts "**** by **** "
       puts chosen_author.author
     else
-      puts "Invalid input, please try again."
+      puts "Invalid input, please enter the number (1-50)."
+      
+      
     end
     option
     main_menu
@@ -75,18 +79,19 @@ def author_by_title
    
      else
        puts "Invalid input, please try again."
+       
      end
+     
       option
-      availability
       main_menu
  
 end
 def main_menu
     command = gets.downcase.strip
     case command
+    when 'availability'
+        availability
     when 'main menu'
-      help
-      when 'main menu'
         help
       when 'exit'
         exit_app
@@ -114,6 +119,7 @@ def highest_rating
     end
      option
      main_menu
+     availability 
 end
 def lowest_rating
       checkouts = Checkout.all.select do |checkout|
@@ -127,7 +133,15 @@ def lowest_rating
 end
 
 def availability
- 
+   
+    Checkout.all.select do |checkout|
+    if checkout.return_date != nil
+    # binding.pry
+    puts "The book is available"
+   else
+    puts "The book is not available at the moment."
+   end
+end
 end
 
 def exit_app
