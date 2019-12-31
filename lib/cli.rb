@@ -39,28 +39,39 @@ def option
    puts options
   
 end
-# we need one menu for author and title and another one when ppl pick ratings.
-# author and title: be able to select another book
-# for rating just availability
 # uniq method for ratings
-# we need availability method 
+# we need availability method for rating 
 
 def title_by_author
    all_authors
    puts "Please type the number of the author to see the title:"
    author = book_choosing_by_author
-   option
-   main_menu(author)
-   
+    option
+   author_menu(author)
+   back_to_start
+   run
+end
+
+def back_to_start
+    start = <<-OPTIONS
+  
+  Please type one of the following:
+  - main menu : go back to main menu
+  - exit : exit the app
+
+  OPTIONS
+   puts start
+  
+
     
 end
 def book_choosing_by_author
     user_input = gets.chomp
     if (user_input.to_i) <= Book.all.count
       chosen_author = Book.all[user_input.to_i - 1]
-      puts chosen_author.title
-      puts "**** by **** "
       puts chosen_author.author
+      puts "**** wrote **** "
+      puts chosen_author.title
       return chosen_author
     else
     all_authors
@@ -78,6 +89,7 @@ def book_choosing_by_title
       puts chosen_author.title
       puts "**** by **** "
       puts chosen_author.author
+      return chosen_author
     else
     all_titles
     puts "Invalid input, please try again."
@@ -89,18 +101,30 @@ end
 def author_by_title
     all_titles
     puts "Please type the number of the title to see the author:"
-    book_choosing_by_title
+    title = book_choosing_by_title
     option
-    # main_menu
-    # is_availabile
-    
- 
+    title_menu(title)
+    back_to_start
+    run
 end
-def main_menu(author)
+def author_menu(author)
     command = gets.downcase.strip
     case command
     when "?"
        is_availabile(author)
+    when 'main menu'
+        help
+      when 'exit'
+        exit_app
+      else
+        option
+    end
+end
+def title_menu(title)
+    command = gets.downcase.strip
+    case command
+    when "?"
+       is_availabile(title)
     when 'main menu'
         help
       when 'exit'
@@ -129,7 +153,7 @@ def highest_rating
 puts "Choose the book for availability:"
     # availability 
     option
-    main_menu
+    # main_menu
 end
 def lowest_rating
       checkouts = Checkout.all.select do |checkout|
@@ -139,23 +163,39 @@ def lowest_rating
        puts "#{index+1}. #{checkout.book.title}"
     end
     puts "Choose the book for availability:"
-    #  availability
+    #  availability_for_lowest
      option
-     main_menu
+    #  main_menu
 end
 
 def is_availabile(author)
     # Note: Need to test
         is_available = author.checkouts.any? do |checkout|
-            # binding.pry
-                  checkout.return_date != nil
+            
+                  checkout.return_date == nil
           end
           if is_available 
-          puts "The book is available"
+            puts  "The book is not available at the moment."
+
           else
-            "The book is not available at the moment."
+            puts "The book is available"
+            
           end
 end
+   def is_availabile(title)
+   # Note: Need to test
+    is_available = title.checkouts.any? do |checkout|
+    checkout.return_date == nil
+      end
+      if is_available 
+        puts  "The book is not available at the moment."
+
+      else
+        puts "The book is available"
+
+      end
+      
+   end
         
 
 
