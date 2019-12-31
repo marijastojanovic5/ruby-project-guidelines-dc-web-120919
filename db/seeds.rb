@@ -16,7 +16,7 @@
 
   
 
-   30. times do
+   . times do
     book_id = rand(lowest_book_id..highest_book_id)
     reader_id = rand(lowest_reader_id..highest_reader_id)
     check_out_date = Time.now - (rand(1000000..1100000))

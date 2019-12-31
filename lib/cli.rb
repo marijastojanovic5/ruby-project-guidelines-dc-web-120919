@@ -31,6 +31,7 @@ def option
     options = <<-OPTIONS
   
   Please type one of the following:
+  - ? : check book availability
   - main menu : go back to main menu
   - exit : exit the app
 
@@ -47,10 +48,10 @@ end
 def title_by_author
    all_authors
    puts "Please type the number of the author to see the title:"
-   book_choosing_by_author
+   author = book_choosing_by_author
    option
-   main_menu
-   availability
+   main_menu(author)
+   
     
 end
 def book_choosing_by_author
@@ -60,6 +61,7 @@ def book_choosing_by_author
       puts chosen_author.title
       puts "**** by **** "
       puts chosen_author.author
+      return chosen_author
     else
     all_authors
     puts "Invalid input, please try again."
@@ -70,6 +72,7 @@ def book_choosing_by_author
 end
 def book_choosing_by_title
     user_input = gets.chomp
+    
     if (user_input.to_i) <= Book.all.count
       chosen_author = Book.all[user_input.to_i - 1]
       puts chosen_author.title
@@ -88,13 +91,16 @@ def author_by_title
     puts "Please type the number of the title to see the author:"
     book_choosing_by_title
     option
-    main_menu
-    availability
+    # main_menu
+    # is_availabile
+    
  
 end
-def main_menu
+def main_menu(author)
     command = gets.downcase.strip
     case command
+    when "?"
+       is_availabile(author)
     when 'main menu'
         help
       when 'exit'
@@ -121,7 +127,7 @@ def highest_rating
     puts "#{index+1}. #{checkout.book.title}" 
    end
 puts "Choose the book for availability:"
-    availability 
+    # availability 
     option
     main_menu
 end
@@ -133,30 +139,24 @@ def lowest_rating
        puts "#{index+1}. #{checkout.book.title}"
     end
     puts "Choose the book for availability:"
-     availability
+    #  availability
      option
      main_menu
 end
 
-def availability
-     user_input = gets.chomp
-     if (user_input.to_i) <= Book.all.count
-       chosen_book = Book.all[user_input.to_i - 1]
-       # else
-    #   puts "Invalid input, please try again."
-      
-    # end
-   
-    # Checkout.all.select do |checkout|
-    #     # binding.pry
-    # if checkout.return_date != nil
-   
-    puts "The book is available"
-     else
-     puts "The book is not available at the moment."
-#     end
-     end
+def is_availabile(author)
+    # Note: Need to test
+        is_available = author.checkouts.any? do |checkout|
+                  checkout.return_date != nil
+          end
+          if is_available 
+          puts "The book is available"
+          else
+            "The book is not available at the moment."
+          end
 end
+        
+
 
 def exit_app
     puts "Thank you for using our app. Goodbye!"
