@@ -147,6 +147,7 @@ end
 def is_availabile(author)
     # Note: Need to test
         is_available = author.checkouts.any? do |checkout|
+            # binding.pry
                   checkout.return_date != nil
           end
           if is_available 
