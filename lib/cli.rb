@@ -31,7 +31,6 @@ def option
     options = <<-OPTIONS
   
   Please type one of the following:
-  - availability : check to see if this book is available
   - main menu : go back to main menu
   - exit : exit the app
 
@@ -44,14 +43,17 @@ end
 # for rating just availability
 # uniq method for ratings
 # we need availability method 
-# we need index for ratings
-
-
-
 
 def title_by_author
    all_authors
    puts "Please type the number of the author to see the title:"
+   book_choosing
+   option
+   main_menu
+   availability
+    
+end
+def book_choosing
     user_input = gets.chomp
     if (user_input.to_i) <= Book.all.count
       chosen_author = Book.all[user_input.to_i - 1]
@@ -59,38 +61,23 @@ def title_by_author
       puts "**** by **** "
       puts chosen_author.author
     else
-      puts "Invalid input, please enter the number (1-50)."
-      
+      puts "Invalid input, please try again."
       
     end
-    option
-    main_menu
-    
+
 end
 def author_by_title
     all_titles
     puts "Please type the number of the title to see the author:"
-     user_input = gets.chomp
-     if (user_input.to_i) <= Book.all.count
-       chosen_author = Book.all[user_input.to_i - 1]
-       puts chosen_author.title
-       puts "**** by **** "
-       puts chosen_author.author
-   
-     else
-       puts "Invalid input, please try again."
-       
-     end
-     
-      option
-      main_menu
+    book_choosing
+    option
+    main_menu
+    availability
  
 end
 def main_menu
     command = gets.downcase.strip
     case command
-    when 'availability'
-        availability
     when 'main menu'
         help
       when 'exit'
@@ -109,39 +96,49 @@ def all_titles
     puts "#{index+1}. #{book.title}"}
 end
 
-
 def highest_rating
     checkouts =  Checkout.all.select do |checkout|
     checkout.rate == 5
     end.first(5)
-    checkouts.each do |checkout|
-       puts checkout.book.title
-    end
-     option
-     main_menu
-     availability 
+    checkouts.each_with_index do |checkout,index|
+    puts "#{index+1}. #{checkout.book.title}" 
+   end
+puts "Choose the book for availability:"
+    availability 
+    option
+    main_menu
 end
 def lowest_rating
       checkouts = Checkout.all.select do |checkout|
         checkout.rate == 1
     end.first(5)
-    checkouts.each do |checkout|
-       puts checkout.book.title
+    checkouts.each_with_index do |checkout, index|
+       puts "#{index+1}. #{checkout.book.title}"
     end
+    puts "Choose the book for availability:"
+     availability
      option
      main_menu
 end
 
 def availability
+     user_input = gets.chomp
+     if (user_input.to_i) <= Book.all.count
+       chosen_book = Book.all[user_input.to_i - 1]
+       # else
+    #   puts "Invalid input, please try again."
+      
+    # end
    
-    Checkout.all.select do |checkout|
-    if checkout.return_date != nil
-    # binding.pry
+    # Checkout.all.select do |checkout|
+    #     # binding.pry
+    # if checkout.return_date != nil
+   
     puts "The book is available"
-   else
-    puts "The book is not available at the moment."
-   end
-end
+     else
+     puts "The book is not available at the moment."
+#     end
+     end
 end
 
 def exit_app
