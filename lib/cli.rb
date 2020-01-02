@@ -211,23 +211,20 @@ def top_authors
     best_authors = Checkout.all.select do |best_author|
         best_author.rate == 1
     end.first(5)
-    best_authors.each_with_index do |best_author, index|
-       puts "#{index+1}. #{best_author.book.author}"
-    end
-    puts "\n"
+     best_authors.map do |best|
+        puts best.book.author
+     end
     puts "**********"
     puts "These are the 5 most popular authors."
-    puts "**********"
     back_to_start_2
-    title_menu_2
-   
-
+    title_menu_2(best_authors)
 end
-def title_menu_2
+
+def title_menu_2(best_authors)
     command = gets.downcase.strip
     case command
     when "title"
-      title_for_authors
+      title_for_authors(best_authors)
     when 'main menu'
         help
       when 'exit'
@@ -236,16 +233,14 @@ def title_menu_2
         option
     end
 end
-def title_for_authors
+def title_for_authors(best_authors)
     puts "Book titles for top 5 authors:"
-    
-
+    best_authors.each do |checkout|
+       puts checkout.book.title 
+    end
     back_to_start
-    
-
 end
         
-
 def exit_app
     puts "Thank you for using our app. Goodbye!"
 end
