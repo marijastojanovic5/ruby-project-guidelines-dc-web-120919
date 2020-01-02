@@ -165,6 +165,7 @@ def highest_rating
    puts "These are the 5 highest rated books at the moment."
    puts "**********"
    back_to_start
+   run
    
 end
 
@@ -181,6 +182,7 @@ def lowest_rating
     puts "These are the 5 lowest rated books at the moment."
     puts "**********"
     back_to_start
+    run
    
 end
 
