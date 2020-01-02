@@ -21,6 +21,7 @@ def help
       -title  : displays all the books by title
       -highest rating : displays book with max rating
       -lowest rating  : displays book with min rating
+      -top authors : displays most popular authors 
       -exit : exits the app
     HELP
   puts help
@@ -59,6 +60,18 @@ def back_to_start
 
   OPTIONS
    puts start
+end
+def back_to_start_2
+    start2 = <<-OPTIONS
+
+    Please type one of the following:
+  - title : check the title for the chosen author
+  - main menu : go back to main menu
+  - exit : exit the app
+
+  OPTIONS
+  puts start2
+
 end
 
 def book_choosing_by_author
@@ -147,10 +160,16 @@ def highest_rating
     checkouts.each_with_index do |checkout,index|
     puts "#{index+1}. #{checkout.book.title}" 
    end
-puts "Choose the book for availability:"
-   option
+   puts "\n"
+   puts "**********"
+   puts "These are the 5 highest rated books at the moment."
+   puts "**********"
+   back_to_start
    
 end
+#  def book_search_by_highest_rating
+#      Book.where(id:210)
+#  end
 
 def lowest_rating
       checkouts = Checkout.all.select do |checkout|
@@ -159,14 +178,16 @@ def lowest_rating
     checkouts.each_with_index do |checkout, index|
        puts "#{index+1}. #{checkout.book.title}"
     end
-    puts "Choose the book for availability:"
-    option
+    puts "\n"
+    puts "**********"
+    puts "These are the 5 lowest rated books at the moment."
+    puts "**********"
+    back_to_start
    
 end
 
 def is_availabile(author)
-    # Note: Need to test
-        is_available = author.checkouts.any? do |checkout|
+    is_available = author.checkouts.any? do |checkout|
             checkout.return_date == nil
           end
           if is_available 
@@ -188,6 +209,36 @@ def is_availabile(title)
       end
       
 end
+def top_authors
+    best_authors = Checkout.all.select do |best_author|
+        best_author.rate == 1
+    end.first(5)
+    best_authors.each_with_index do |best_author, index|
+       puts "#{index+1}. #{best_author.book.author}"
+    end
+    puts "\n"
+    puts "**********"
+    puts "These are the 5 most popular authors."
+    puts "**********"
+    back_to_start_2
+
+end
+def title_menu_2
+    command = gets.downcase.strip
+    case command
+    when "title"
+      title_for_authors
+    when 'main menu'
+        help
+      when 'exit'
+        exit_app
+      else
+        option
+    end
+end
+def title_for_authors
+    
+end
         
 
 def exit_app
@@ -205,6 +256,8 @@ def run
         highest_rating
       when 'lowest rating'
         lowest_rating
+      when 'top authors'
+        top_authors
       when 'exit'
         exit_app
       else
