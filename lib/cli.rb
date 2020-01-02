@@ -241,6 +241,7 @@ def title_for_authors(best_authors)
        puts checkout.book.title 
     end
     back_to_start
+    run
 end
         
 def exit_app
