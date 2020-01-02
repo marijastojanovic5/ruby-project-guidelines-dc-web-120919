@@ -210,14 +210,16 @@ def is_availabile(title)
       
 end
 def top_authors
+    puts "\n"
+    puts "**********"
+    puts "These are the 5 most popular authors:"
+    puts "\n"
     best_authors = Checkout.all.select do |best_author|
         best_author.rate == 1
     end.first(5)
      best_authors.map do |best|
         puts best.book.author
      end
-    puts "**********"
-    puts "These are the 5 most popular authors."
     back_to_start_2
     title_menu_2(best_authors)
 end
@@ -236,7 +238,10 @@ def title_menu_2(best_authors)
     end
 end
 def title_for_authors(best_authors)
+    puts "\n"
+    puts "**********"
     puts "Book titles for top 5 authors:"
+    puts "\n"
     best_authors.each do |checkout|
        puts checkout.book.title 
     end
