@@ -167,9 +167,7 @@ def highest_rating
    back_to_start
    
 end
-#  def book_search_by_highest_rating
-#      Book.where(id:210)
-#  end
+
 
 def lowest_rating
       checkouts = Checkout.all.select do |checkout|
@@ -221,6 +219,8 @@ def top_authors
     puts "These are the 5 most popular authors."
     puts "**********"
     back_to_start_2
+    title_menu_2
+   
 
 end
 def title_menu_2
@@ -237,7 +237,12 @@ def title_menu_2
     end
 end
 def title_for_authors
+    puts "Book titles for top 5 authors:"
     
+
+    back_to_start
+    
+
 end
         
 
