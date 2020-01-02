@@ -40,7 +40,7 @@ def option
    puts options
   
 end
-# we need availability method for rating 
+ 
 def title_by_author
    all_authors
    puts "Please type the number of the author to see the title:"

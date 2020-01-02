@@ -10,11 +10,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20191230162045) do
+ActiveRecord::Schema.define(version: 20200102213354) do
 
   create_table "books", force: :cascade do |t|
-    t.string "title"
-    t.string "author"
+    t.string  "title"
+    t.string  "author"
+    t.integer "genre_id"
   end
 
   create_table "checkouts", force: :cascade do |t|
@@ -24,6 +25,10 @@ ActiveRecord::Schema.define(version: 20191230162045) do
     t.date    "check_out_date"
     t.date    "due_date"
     t.date    "return_date"
+  end
+
+  create_table "genres", force: :cascade do |t|
+    t.string "name"
   end
 
   create_table "readers", force: :cascade do |t|
