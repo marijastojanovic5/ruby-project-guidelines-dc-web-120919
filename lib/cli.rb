@@ -1,4 +1,3 @@
-require 'pry'
 def welcome
     puts "
            Welcome to our Library
@@ -9,7 +8,7 @@ def welcome
  //__.....----~~~~._\  | /_.~~~~----.....__\\
 ====================\\ |//====================
                     `---`
- "
+ ".red
  help
    
 end
@@ -25,7 +24,7 @@ def help
       -top authors : displays most popular authors 
       -exit : exits the app
     HELP
-  puts help
+  puts help.yellow
   run
 end
 
@@ -38,13 +37,13 @@ def option
   - exit : exit the app
 
   OPTIONS
-   puts options
+   puts options.green
   
 end
  
 def title_by_author
    all_authors
-   puts "\nPlease type the number of the author to see the title:\n"
+   puts "\nPlease type the number of the author to see the title:\n".blue
     author = book_choosing_by_author
      option
      author_menu(author)
@@ -60,7 +59,7 @@ def back_to_start
   - exit : exit the app
 
   OPTIONS
-   puts start
+   puts start.green
 end
 def back_to_start_2
     start2 = <<-OPTIONS
@@ -71,7 +70,7 @@ def back_to_start_2
   - exit : exit the app
 
   OPTIONS
-  puts start2
+  puts start2.green
 
 end
 
@@ -81,13 +80,13 @@ def book_choosing_by_author
       chosen_author = Book.all[user_input.to_i - 1]
       puts "\n"
       puts chosen_author.author
-      puts "**** wrote ****"
+      puts "**** wrote ****".blue
       puts chosen_author.title
       return chosen_author
       puts "\n"
     else
     all_authors
-    puts "\nInvalid input, please try again.\n"
+    puts "\nInvalid input, please try again.\n".blue
     book_choosing_by_author
     end
 end
@@ -99,20 +98,20 @@ def book_choosing_by_title
       chosen_author = Book.all[user_input.to_i - 1]
       puts "\n"
       puts chosen_author.title
-      puts "**** by ****"
+      puts "**** by ****".blue
       puts chosen_author.author
       return chosen_author
       puts "\n"
     else
     all_titles
-    puts "\nInvalid input, please try again.\n"
+    puts "\nInvalid input, please try again.\n".red
     book_choosing_by_title
     end
 end
 
 def author_by_title
     all_titles
-    puts "\nPlease type the number of the title to see the author:\n"
+    puts "\nPlease type the number of the title to see the author:\n".blue
     puts "\n"
     title = book_choosing_by_title
      option
@@ -165,7 +164,7 @@ end
 
 def chosen_boooksssss
     all_genres
-    puts "\nPlease type the number of the genre to see the books:\n"
+    puts "\nPlease type the number of the genre to see the books:\n".blue
     book_choosing_by_genre
     back_to_start
     run
@@ -179,24 +178,19 @@ end
       puts  book_title_by_genre
     else
     all_genres
-    puts "\nInvalid input, please try again.\n"
+    puts "\nInvalid input, please try again.\n".red
     book_choosing_by_genre
     end
-
-
  end
 
 def highest_rating
     checkouts =  Checkout.all.select do |checkout|
     checkout.rate == 5
     end.first(5)
+    puts "These are the 5 highest rated books at the moment.\n".light_blue
     checkouts.each_with_index do |checkout,index|
     puts "#{index+1}. #{checkout.book.title}" 
    end
-   
-   puts "\n**********\n"
-   puts "These are the 5 highest rated books at the moment.\n"
-   puts "**********\n"
    back_to_start
    run
    
@@ -204,19 +198,15 @@ end
 
 
 def lowest_rating
-      checkouts = Checkout.all.select do |checkout|
+    checkouts = Checkout.all.select do |checkout|
         checkout.rate == 1
     end.first(5)
+    puts "These are the 5 lowest rated books at the moment.\n".light_blue
     checkouts.each_with_index do |checkout, index|
        puts "#{index+1}. #{checkout.book.title}"
     end
-    
-    puts "**********\n"
-    puts "These are the 5 lowest rated books at the moment.\n"
-    puts "**********"
     back_to_start
     run
-   
 end
 
 def is_availabile(author)
@@ -224,9 +214,9 @@ def is_availabile(author)
             checkout.return_date == nil
           end
           if is_available 
-            puts  "\nThe book is not available at the moment.\n"
+            puts  "\nThe book is not available at the moment.\n".light_red
           else
-            puts "\nThe book is available\n"
+            puts "\nThe book is available\n".cyan
           end
 end
 
@@ -235,15 +225,15 @@ def is_availabile(title)
     checkout.return_date == nil
       end
       if is_available 
-        puts  "\nThe book is not available at the moment.\n"
+        puts  "\nThe book is not available at the moment.\n".light_red
 
       else
-        puts "\nThe book is available\n"
+        puts "\nThe book is available\n".cyan
       end
       
 end
 def top_authors
-    puts "\nThese are the 5 most popular authors:\n"
+    puts "\nThese are the 5 most popular authors:\n".light_blue
     
     best_authors = Checkout.all.select do |best_author|
         best_author.rate == 1
@@ -269,17 +259,16 @@ def title_menu_2(best_authors)
     end
 end
 def title_for_authors(best_authors)
-    puts "**********"
-    puts "\nBook titles for top 5 authors:\n"
+    puts "\nBook titles for top 5 authors:\n".blue
     best_authors.each do |checkout|
-       puts checkout.book.title 
+    puts checkout.book.title 
     end
     back_to_start
     run
 end
         
 def exit_app
-    puts "\nThank you for using our app. Goodbye!"
+    puts "\nThank you for using our app. Goodbye!".magenta
 end
 
 def run

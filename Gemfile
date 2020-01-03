@@ -6,5 +6,6 @@ gem "sqlite3"
 gem "pry"
 gem 'faker'
 gem 'rake'
+gem 'colorize'
 gem "require_all"
 
