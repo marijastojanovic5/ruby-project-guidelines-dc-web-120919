@@ -15,8 +15,8 @@ def welcome
 end
 def help
      help = <<-HELP
-     Please choose one of the following:
-      Book by
+     Please choose one of the following:\n
+      Book by \n
       -author : displays all the books by authors
       -title  : displays all the books by title
       -genre : displays all the genres
@@ -44,11 +44,11 @@ end
  
 def title_by_author
    all_authors
-   puts "Please type the number of the author to see the title:"
-   author = book_choosing_by_author
-    option
-   author_menu(author)
-   back_to_start
+   puts "\nPlease type the number of the author to see the title:\n"
+    author = book_choosing_by_author
+     option
+     author_menu(author)
+     back_to_start
    run
 end
 
@@ -65,7 +65,7 @@ end
 def back_to_start_2
     start2 = <<-OPTIONS
 
-    Please type one of the following:
+    Please type one of the following:\n
   - title : check the titles for the chosen authors
   - main menu : go back to main menu
   - exit : exit the app
@@ -80,12 +80,12 @@ def book_choosing_by_author
     if (user_input.to_i) <= Book.all.count
       chosen_author = Book.all[user_input.to_i - 1]
       puts chosen_author.author
-      puts "**** wrote **** "
+      puts "\n**** wrote ****\n "
       puts chosen_author.title
       return chosen_author
     else
     all_authors
-    puts "Invalid input, please try again."
+    puts "\nInvalid input, please try again.\n"
     book_choosing_by_author
     end
 end
@@ -96,21 +96,21 @@ def book_choosing_by_title
     if (user_input.to_i) <= Book.all.count
       chosen_author = Book.all[user_input.to_i - 1]
       puts chosen_author.title
-      puts "**** by **** "
+      puts "\n**** by ****\n"
       puts chosen_author.author
       return chosen_author
     else
     all_titles
-    puts "Invalid input, please try again."
+    puts "\nInvalid input, please try again.\n"
     book_choosing_by_title
     end
 end
 
 def author_by_title
     all_titles
-    puts "Please type the number of the title to see the author:"
+    puts "\nPlease type the number of the title to see the author:\n"
     title = book_choosing_by_title
-    option
+     option
     title_menu(title)
     back_to_start
     run
@@ -160,7 +160,7 @@ end
 
 def chosen_boooksssss
     all_genres
-    puts "Please type the number of the genre to see the books:"
+    puts "\nPlease type the number of the genre to see the books:\n"
     book_choosing_by_genre
     back_to_start
     run
@@ -173,7 +173,7 @@ end
       puts book_title_by_genre
     else
     all_genres
-    puts "Invalid input, please try again."
+    puts "\nInvalid input, please try again.\n"
     book_choosing_by_genre
     end
 
@@ -187,10 +187,10 @@ def highest_rating
     checkouts.each_with_index do |checkout,index|
     puts "#{index+1}. #{checkout.book.title}" 
    end
-   puts "\n"
-   puts "**********"
-   puts "These are the 5 highest rated books at the moment."
-   puts "**********"
+   
+   puts "\n**********\n"
+   puts "These are the 5 highest rated books at the moment.\n"
+   puts "**********\n"
    back_to_start
    run
    
@@ -204,9 +204,9 @@ def lowest_rating
     checkouts.each_with_index do |checkout, index|
        puts "#{index+1}. #{checkout.book.title}"
     end
-    puts "\n"
-    puts "**********"
-    puts "These are the 5 lowest rated books at the moment."
+    
+    puts "**********\n"
+    puts "These are the 5 lowest rated books at the moment.\n"
     puts "**********"
     back_to_start
     run
@@ -218,9 +218,9 @@ def is_availabile(author)
             checkout.return_date == nil
           end
           if is_available 
-            puts  "The book is not available at the moment."
+            puts  "\nThe book is not available at the moment.\n"
           else
-            puts "The book is available"
+            puts "\nThe book is available\n"
           end
 end
 
@@ -229,18 +229,16 @@ def is_availabile(title)
     checkout.return_date == nil
       end
       if is_available 
-        puts  "The book is not available at the moment."
+        puts  "\nThe book is not available at the moment.\n"
 
       else
-        puts "The book is available"
+        puts "\nThe book is available\n"
       end
       
 end
 def top_authors
-    puts "\n"
-    puts "**********"
-    puts "These are the 5 most popular authors:"
-    puts "\n"
+    puts "\nThese are the 5 most popular authors:\n"
+    
     best_authors = Checkout.all.select do |best_author|
         best_author.rate == 1
     end.first(5)
@@ -265,10 +263,8 @@ def title_menu_2(best_authors)
     end
 end
 def title_for_authors(best_authors)
-    puts "\n"
     puts "**********"
-    puts "Book titles for top 5 authors:"
-    puts "\n"
+    puts "\nBook titles for top 5 authors:\n"
     best_authors.each do |checkout|
        puts checkout.book.title 
     end
@@ -277,7 +273,7 @@ def title_for_authors(best_authors)
 end
         
 def exit_app
-    puts "Thank you for using our app. Goodbye!"
+    puts "\nThank you for using our app. Goodbye!"
 end
 
 def run
