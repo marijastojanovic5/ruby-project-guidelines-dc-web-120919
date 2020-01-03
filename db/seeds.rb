@@ -8,7 +8,7 @@
     Reader.create(name: Faker::Name.unique.name)
   end
   50. times do
-    Book.create(title: Faker::Book.title, author: Faker::Book.author)
+    Book.create(title: Faker::Book.title, author: Faker::Book.author, genre_id: rand(1..10))
   end
  
     Genre.create(id:1,name: "SiFi")

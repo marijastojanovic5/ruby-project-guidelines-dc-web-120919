@@ -19,6 +19,7 @@ def help
       Book by
       -author : displays all the books by authors
       -title  : displays all the books by title
+      -genre : displays all the genres
       -highest rating : displays book with max rating
       -lowest rating  : displays book with min rating
       -top authors : displays most popular authors 
@@ -65,7 +66,7 @@ def back_to_start_2
     start2 = <<-OPTIONS
 
     Please type one of the following:
-  - title : check the title for the chosen author
+  - title : check the titles for the chosen authors
   - main menu : go back to main menu
   - exit : exit the app
 
@@ -152,6 +153,21 @@ def all_titles
     Book.all.each_with_index {|book, index|
     puts "#{index+1}. #{book.title}"}
 end
+def all_genres
+    Genre.all.each_with_index {|genre, index|
+    puts "#{index+1}. #{genre.name}"}
+end
+
+def chosen_boooksssss
+    all_genres
+    puts "Please type the number of the genre to see the books:"
+    # book_choosing_by_genre
+    back_to_start
+    run
+end
+# def book_choosing_by_genre
+
+# end
 
 def highest_rating
     checkouts =  Checkout.all.select do |checkout|
@@ -260,6 +276,8 @@ def run
         title_by_author
       when 'title'
         author_by_title
+      when 'genre'
+        chosen_boooksssss
       when 'highest rating'
         highest_rating
       when 'lowest rating'
