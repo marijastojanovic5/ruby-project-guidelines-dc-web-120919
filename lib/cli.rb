@@ -79,10 +79,12 @@ def book_choosing_by_author
     user_input = gets.chomp
     if (user_input.to_i) <= Book.all.count
       chosen_author = Book.all[user_input.to_i - 1]
+      puts "\n"
       puts chosen_author.author
-      puts "\n**** wrote ****\n "
+      puts "**** wrote ****"
       puts chosen_author.title
       return chosen_author
+      puts "\n"
     else
     all_authors
     puts "\nInvalid input, please try again.\n"
@@ -95,10 +97,12 @@ def book_choosing_by_title
     
     if (user_input.to_i) <= Book.all.count
       chosen_author = Book.all[user_input.to_i - 1]
+      puts "\n"
       puts chosen_author.title
-      puts "\n**** by ****\n"
+      puts "**** by ****"
       puts chosen_author.author
       return chosen_author
+      puts "\n"
     else
     all_titles
     puts "\nInvalid input, please try again.\n"
@@ -109,6 +113,7 @@ end
 def author_by_title
     all_titles
     puts "\nPlease type the number of the title to see the author:\n"
+    puts "\n"
     title = book_choosing_by_title
      option
     title_menu(title)
