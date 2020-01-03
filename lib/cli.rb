@@ -161,13 +161,24 @@ end
 def chosen_boooksssss
     all_genres
     puts "Please type the number of the genre to see the books:"
-    # book_choosing_by_genre
+    book_choosing_by_genre
     back_to_start
     run
 end
-# def book_choosing_by_genre
+ def book_choosing_by_genre
+    user_input = gets.chomp
+    if (user_input.to_i) <= all_genres.count
+      chosen_genre = all_genres[user_input.to_i - 1]
+      book_title_by_genre = chosen_genre.books.map {|book|book.title}
+      puts book_title_by_genre
+    else
+    all_genres
+    puts "Invalid input, please try again."
+    book_choosing_by_genre
+    end
 
-# end
+
+ end
 
 def highest_rating
     checkouts =  Checkout.all.select do |checkout|
