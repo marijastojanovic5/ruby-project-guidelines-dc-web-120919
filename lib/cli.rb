@@ -170,7 +170,8 @@ end
     if (user_input.to_i) <= all_genres.count
       chosen_genre = all_genres[user_input.to_i - 1]
       book_title_by_genre = chosen_genre.books.map {|book|book.title}
-      puts book_title_by_genre
+      puts "\n"
+      puts  book_title_by_genre
     else
     all_genres
     puts "\nInvalid input, please try again.\n"
